@@ -7,4 +7,4 @@ Each project focuses on different aspects of Python programming, ranging from ba
 
 ## Projects
 
-1. Simple calculator
+1. [Simple calculator](https://github.com/pgnikolov/python-small-projects/blob/main/simple_calculator.py)
