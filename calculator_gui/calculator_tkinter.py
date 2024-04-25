@@ -67,19 +67,22 @@ def calculate():
 
 root = tk.Tk()
 root.title("Calculator")
-root.config(bg="#12CBC4")  # add background collor to the main window
+root.geometry("600x600")  # max size of the picture
+
+bgimage = tk.PhotoImage(file='/home/plamen/Desktop/Python Mario/mario_mentor/calculator_gui/calc2.png')
+label = tk.Label(root, image=bgimage)
+label.place(x=0, y=0)
 
 frame1 = tk.Frame(root)
 frame1.pack(pady=10)
-frame1.configure(bg="#12CBC4")   # add collor to first frame( around the "Enter first number")
 
-label1 = tk.Label(frame1, text="Enter first number:", bg="#12CBC4")     # fill with collor background "first number"
+label1 = tk.Label(frame1, text="Enter first number:")
 label1.grid(row=0, column=0)
 
 entry1 = tk.Entry(frame1)
 entry1.grid(row=0, column=1)
 
-label2 = tk.Label(frame1, text="Enter second number:", bg="#12CBC4")    # # fill with collor background "second number"
+label2 = tk.Label(frame1, text="Enter second number:")
 label2.grid(row=1, column=0)
 
 entry2 = tk.Entry(frame1)
@@ -87,26 +90,23 @@ entry2.grid(row=1, column=1)
 
 frame2 = tk.Frame(root)
 frame2.pack(pady=5)
-frame2.configure(bg="#12CBC4")      # # add collor to first frame( around the "Enter second number")
 
 operation_var = tk.StringVar(frame2)
 operation_var.set("+")  # default value
 
-operation_label = tk.Label(frame2, text="Choose operation:", bg="#12CBC4")  # fill background "choose operation"
+operation_label = tk.Label(frame2, text="Choose operation:")
 operation_label.grid(row=0, column=0)
 
 operation_menu = tk.OptionMenu(frame2, operation_var, "+", "-", "*", "/", "^", "mod", "√")
 operation_menu.grid(row=0, column=1)
-operation_menu.config(bg="green", fg="white", highlightbackground="#12CBC4")    # background for the option menu
-operation_menu["menu"].config(bg="red")              # background for the options list
+operation_menu.config(bg="green", fg="white")
+operation_menu["menu"].config(bg="red")
 
 calculate_button = tk.Button(frame2, text="Calculate", command=calculate)
 calculate_button.grid(row=0, column=2)
 calculate_button.configure(bg="orange", fg="black")  # color for calculate button
-calculate_button.config(highlightbackground="#12CBC4")  # change the borders collor the calculate button
 
 result_label = tk.Label(root, text="")
 result_label.pack(pady=10)
-result_label.configure(bg="#12CBC4")  # result space with the same color of the background
 
 root.mainloop()
