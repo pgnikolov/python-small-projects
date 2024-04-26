@@ -16,3 +16,7 @@ Each project focuses on different aspects of Python programming, ranging from ba
  - This Python code creates a simple calculator application with a graphical user interface (GUI) built using the tkinter library.
  - The code displays a 2 textbox where users can enter their number.
  - Available arithmetic operations (+, -, *, /, mod (%), ^ (square), √(square root))
+   
+3. [Simple Log in GUI](https://github.com/pgnikolov/python-small-projects/blob/main/login.py)
+ - In this code, I used tkinter library with grid geometry to design a login screen as follows
+ - The grid that has two columns and three rows, with the size of second 3 times bigger than first
