@@ -11,3 +11,7 @@ Each project focuses on different aspects of Python programming, ranging from ba
  - This Python code creates a simple calculator application with a graphical user interface (GUI) built using the tkinter library.
  - The code displays a 2 textbox where users can enter their number.
  - Available arithmetic operations (+, -, *, /, mod (%), ^ (square), √(square root))
+2. [Cryptocurrencies portfolio](https://github.com/pgnikolov/python-small-projects/tree/main/stocks-currencies-projects/crypto-portfolio)
+ - using API it calculates the value of every asset
+ - option to update the quantity of choosen asset
+ - as output user can see the amount which he has of every crypto and its value in $ and the total value of portfolio
