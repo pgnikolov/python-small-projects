@@ -37,11 +37,9 @@ waves_usd = float(waves_data['exchange_rate'])
 mana_data = data['data']['trends'][21]
 mana_usd = float(mana_data['exchange_rate'])
 
-crypto_prices = {'btc': {'price': btc_usd, 'quantity': 10}, 'eth': {'price': eth_usd, 'quantity': 20.5},
-                 'bnb': {'price': bnb_usd, 'quantity': 22.65}, 'doge': {'price': doge_usd, 'quantity': 12111},
-                 'link': {'price': link_usd, 'quantity': 11257}, 'ltc': {'price': ltc_usd, 'quantity': 559},
-                 'waves': {'price': waves_usd, 'quantity': 14257}, 'mana': {'price': mana_usd, 'quantity': 12547}}
-
+with open("small-pyhon-projects/stocks-currencies-projects/crypto_prices.json", "r") as f:
+    crypto_prices = json.load(f)
+print("Loaded crypto prices from crypto_prices.json")
 
 command = input('Do you want to update the quantity of some asset? (Yes/No):')
 
@@ -52,8 +50,10 @@ while True:
         asset = input("Plese enter the asset you want to change").lower()
         print(f"Current quantity of {asset.upper()} is {crypto_prices[asset]['quantity']} ")
         crypto_prices[asset]['quantity'] = float(input("Please enter the new value:"))
-    command = input('Do you want to update the quantity of other asset? (Yes/No):')
+        command = input('Do you want to update the quantity of other asset? (Yes/No):')
 
+with open("small-pyhon-projects/stocks-currencies-projects/crypto_prices.json", "w") as f:
+    json.dump(crypto_prices, f)
 
 total_value_portfolio = 0
 
@@ -61,6 +61,7 @@ for crypto, values in crypto_prices.items():
     total_value = values["price"] * values['quantity']
     total_value_portfolio += total_value
     print(f"Total value of your {crypto.upper()} asset is: ${total_value:.2f}")
+    print(f"You have {crypto_prices[crypto]['quantity']} {crypto.upper()}")
     print(f"Current price of {crypto.upper()} is: ${crypto_prices[crypto]['price']}\n")
 
 # Print the updated dictionary
