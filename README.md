@@ -15,3 +15,4 @@ Each project focuses on different aspects of Python programming, ranging from ba
  - using API it calculates the value of every asset
  - option to update the quantity of choosen asset
  - as output user can see the amount which he has of every crypto and its value in $ and the total value of portfolio
+3. [Weather Application](https://github.com/pgnikolov/python-small-projects/tree/main/weather_app)
