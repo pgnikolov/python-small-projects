@@ -83,8 +83,11 @@ def get_favourite_cities():
         return f.readlines()
 
 
+def remove_favorite_city(city_name):
+    favourite_cities = get_favourite_cities()
+    filtered_cities = [city.strip() for city in favourite_cities if city.strip().lower() != city_name.lower()]
+    with open("favourite_cities.txt", "w") as f:
+        for city in filtered_cities:
+            f.write(city + "\n")
 
 
-city = input("Please input city you wish to get weather information: ")
-print(get_favourite_cities())
-print_weather(city)
