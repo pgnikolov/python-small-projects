@@ -16,3 +16,6 @@ Each project focuses on different aspects of Python programming, ranging from ba
  - option to update the quantity of choosen asset
  - as output user can see the amount which he has of every crypto and its value in $ and the total value of portfolio
 3. [Weather Application](https://github.com/pgnikolov/python-small-projects/tree/main/weather_app)
+ - using openweather API
+ - get complete information about current weather conditions
+ - option to add a city to list with favourite ones
