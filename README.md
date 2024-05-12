@@ -18,4 +18,4 @@ Each project focuses on different aspects of Python programming, ranging from ba
 3. [Weather Application](https://github.com/pgnikolov/python-small-projects/tree/main/weather_app)
  - using openweather API
  - get complete information about current weather conditions
- - option to add a city to list with favourite ones
+ - option to add and remove a city to list with favourite ones
