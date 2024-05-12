@@ -3,6 +3,7 @@ import json
 import datetime
 
 
+# CURRENT WEATHER FUNCTION
 def get_current_weather(city_name):
     # api for current weater
     weather_url = (f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&'
@@ -17,13 +18,14 @@ def get_current_weather(city_name):
     if r.status_code == 200:
         return json.loads(r.content)
     if r.status_code == 429:
-        print("Minute request limit reached...")
+        print("Error 429 - Too Many Requests.")
         return
     if r.status_code == 401:
-        print("Please check you API and subscription status")
+        print("Please check your API and key")
         return
 
 
+# WIND DIRECTION FUCTION
 def get_wind_direction(data):
     cardinal = ""
     # wind directions https://dev.qweather.com/en/docs/resource/wind-info/
@@ -46,6 +48,7 @@ def get_wind_direction(data):
     return cardinal
 
 
+# OUTPUT CURRENT WEATHER FUNCTION
 def print_weather(city_name):
     data = get_current_weather(city_name)
     if data:
@@ -91,6 +94,7 @@ def remove_favourite_city(city_name):
         # from new list we put the cities back to the fav list order
         for city in filtered_cities:
             f.write(city + "\n")
+
 
 
 def weather_app():
