@@ -19,3 +19,6 @@ Each project focuses on different aspects of Python programming, ranging from ba
  - using openweather API
  - get complete information about current weather conditions
  - option to add and remove a city to list with favourite ones
+ - add option for 5 days forecast
+ - output for 5 days:![5days_forecast](https://github.com/pgnikolov/python-small-projects/assets/151896883/99ecda30-bfcf-4974-9d1f-a67fcd410a78)
+ - output for current weather conditions: 
