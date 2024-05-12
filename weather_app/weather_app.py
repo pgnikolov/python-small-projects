@@ -2,7 +2,9 @@ import requests
 import json
 import datetime
 
+
 def get_current_weather(city_name):
+    # api for current weater
     weather_url = (f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&'
                    f'appid=548a48090e1be38d7e828325f094465b&units=metric')
 
@@ -22,7 +24,7 @@ def get_current_weather(city_name):
         return
 
 
-def get_wind_cardinal_direction(data):
+def get_wind_direction(data):
     cardinal = ""
     # wind directions https://dev.qweather.com/en/docs/resource/wind-info/
     if 0 <= data["wind"]["deg"] < 33.75:
@@ -49,7 +51,7 @@ def print_weather(city_name):
     if data:
         sunrise_time = datetime.datetime.fromtimestamp(data['sys']['sunrise']).strftime("%H:%M:%S")
         sunset_time = datetime.datetime.fromtimestamp(data['sys']['sunset']).strftime("%H:%M:%S")
-        cardinal = get_wind_cardinal_direction(data)
+        cardinal = get_wind_direction(data)
         print(f'Current Weather at {city_name.capitalize()}: \n'
               f'{data["weather"][0]["description"].capitalize()} \n'
               f'Current Temperature: {data["main"]["temp"]}°C \n'
@@ -64,12 +66,25 @@ def print_weather(city_name):
               # visib. ot metri v km
               f'Visibility: {data["visibility"] / 1000:.2f}Km. \n'
               f'Wind: \n'
-              # wind speed ot m/s v km/h
+              # wind speed ot m/s v km/h - \t - 4 spaces
               f'\tSpeed: {data["wind"]["speed"] * 1.60934:.2f}Km/h \n'
               f'\tDirection: {data["wind"]["deg"]}° {cardinal}')
     else:
         return
 
 
+def add_favourite_city(city_name):
+    with open('favourite_cities.txt', 'a') as f:
+        f.write(city_name + "\n")
+
+
+def get_favourite_cities():
+    with open('favourite_cities.txt', 'r') as f:
+        return f.readlines()
+
+
+
+
 city = input("Please input city you wish to get weather information: ")
+print(get_favourite_cities())
 print_weather(city)
