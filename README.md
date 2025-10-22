@@ -17,5 +17,5 @@ Each project focuses on different aspects of Python programming, ranging from ba
    - The code displays a 2 textbox where users can enter their number.
    - Available arithmetic operations (+, -, *, /, mod (%), ^ (square), √(square root))
 
-3. Instagram QR Code Generator
+3. [Instagram QR Code Generator](https://github.com/pgnikolov/python-small-projects/tree/main/qr_instagram) 
    - This Python script generates custom, Instagram-themed QR codes with gradient colors and an optional local logo. You can use it to create a visually appealing QR code that links directly to your Instagram profile.
