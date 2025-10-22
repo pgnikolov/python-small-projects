@@ -4,7 +4,7 @@ import random
 
 
 def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png"):
-    profile_url = "instagram link to your profile"
+    profile_url = input("Enter instagram link to your profile:")
 
     # Create QR code
     qr = qrcode.QRCode(
@@ -103,7 +103,7 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png"):
             font_small = ImageFont.load_default()
 
     # Handle text with gradient effect
-    handle = "@your_username"
+    handle = input("Enter your username starting with @:")
     handle_width = draw.textlength(handle, font=font_large)
     handle_x = (img_width - handle_width) // 2
 
@@ -132,14 +132,14 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png"):
             x_end = img_width
         draw.rectangle([x_start, bar_y, x_end, bar_y + bar_height], fill=color)
 
-    final_img.save("name_for_your_file.png", quality=95)
-    print("Professional QR code with Instagram gradient created!")
+    final_img.save("qr_instagram.png", quality=95)
+    print("QR code with Instagram gradient created!")
     return final_img
 
 
 # Alternative version with smooth gradient
 def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png"):
-    profile_url = "instagram link to your profile"
+    profile_url = input("Enter instagram link to your profile:")
 
     # Create QR code
     qr = qrcode.QRCode(
@@ -228,7 +228,7 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png"):
         font_small = ImageFont.load_default()
 
     # Handle text
-    handle = "@your_username"
+    handle = input("Enter your username starting with @:")
     handle_width = draw.textlength(handle, font=font_large)
     handle_x = (img_width - handle_width) // 2
     draw.text((handle_x, img_height + 25), handle, fill="#E1306C", font=font_large)
@@ -251,7 +251,7 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png"):
             x_end = img_width
         draw.rectangle([x_start, bar_y, x_end, bar_y + bar_height], fill=color)
 
-    final_img.save("file_name.png", quality=95)
+    final_img.save("qr_instagram.png", quality=95)
     print("🎨 Smooth gradient QR code created!")
     return final_img
 
