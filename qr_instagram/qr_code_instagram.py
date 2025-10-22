@@ -259,4 +259,4 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png"):
 # Run both versions
 print("Creating gradient QR codes...")
 create_instagram_qr_with_local_logo()
-create_instagram_qr_smooth_gradient()
+#create_instagram_qr_smooth_gradient()
