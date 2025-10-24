@@ -19,3 +19,8 @@ Each project focuses on different aspects of Python programming, ranging from ba
 
 3. [Instagram QR Code Generator](https://github.com/pgnikolov/python-small-projects/tree/main/qr_instagram) 
    - This Python script generates custom, Instagram-themed QR codes with gradient colors and an optional local logo. You can use it to create a visually appealing QR code that links directly to your Instagram profile.
+
+4. [LinkedIn QR Code Generator](https://github.com/pgnikolov/python-small-projects/tree/main/qr_linked_in#linkedin-qr-code-generator)
+   - A Python script that generates elegant, LinkedIn-themed QR codes for professional profiles — featuring custom branding, a corporate blue palette, and rounded-corner design.
+
+
