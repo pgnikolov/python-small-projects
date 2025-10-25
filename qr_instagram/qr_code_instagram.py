@@ -3,7 +3,23 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 def add_rounded_corners(image, radius=40):
-    """Add rounded corners to the image"""
+    """
+    Adds rounded corners to the provided image.
+
+    This function takes an image and applies a mask with rounded corners
+    to it. The corners are cut out based on the specified radius value.
+    The resulting image includes transparency where the corners have been
+    rounded. If no radius is specified, a default value is used.
+
+    :param image: The source image on which the rounded corner mask
+        will be applied.
+    :type image: Image object
+    :param radius: The radius of the rounded corners for the mask.
+        Defaults to 40.
+    :type radius: int
+    :return: The image with rounded corners and transparency applied.
+    :rtype: Image object
+    """
     # Create a mask with rounded corners
     mask = Image.new('L', image.size, 0)
     mask_draw = ImageDraw.Draw(mask)
@@ -19,6 +35,22 @@ def add_rounded_corners(image, radius=40):
 
 
 def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
+    """
+    Generates an Instagram QR code with a custom local logo and optional rounded corners.
+
+    Creates a QR code for an Instagram profile with a customizable gradient pattern
+    and integrates a local logo into the QR code. Additional text decorations, such as the
+    Instagram handle and scan invitation text, are added to the QR code. The QR code can optionally
+    include rounded corners for a stylistic touch.
+
+    :param logo_path: Path to the local logo image file. Defaults to 'instagram_logo.png'.
+    :param rounded_corners: Boolean flag to determine whether to apply rounded corners
+        to the output QR code. Defaults to False.
+    :param corner_radius: Specifies the radius of the corners if rounded_corners is set to True.
+        Defaults to 40.
+    :return: Final generated QR code image with Instagram gradient and logo.
+    :rtype: PIL.Image.Image
+    """
     profile_url = input("Enter instagram link to your profile:")
 
     # Create QR code
@@ -160,6 +192,19 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_
 
 # Alternative version with a smooth gradient
 def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
+    """
+    Generate a smooth-gradient QR code for an Instagram profile.
+
+    This function generates a visually appealing QR code with a smooth Instagram-style gradient
+    and optionally includes a logo in the center. The resulting QR code can be customized
+    to include rounded corners. Text such as the handle and a "scan" message will also be
+    added below the QR code for additional context.
+
+    :param logo_path: Path to the logo image to include in the QR code.
+    :param rounded_corners: Flag to apply rounded corners to the final QR code image.
+    :param corner_radius: Radius for the rounded corners if enabled.
+    :return: The generated QR code image object.
+    """
     profile_url = input("Enter instagram link to your profile:")
 
     # Create QR code
@@ -287,6 +332,19 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_
 
 # Black and white QR code version
 def create_instagram_qr_black_white(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
+    """
+    Create a black-and-white Instagram QR code with optional customization, such as adding a logo,
+    rounded corners, and corner radius, and additional text for user instructions.
+
+    :param logo_path: Path to the logo image file to be added in the center of the QR code.
+    :type logo_path: str, optional
+    :param rounded_corners: Flag indicating whether the image should have rounded corners.
+    :type rounded_corners: bool, optional
+    :param corner_radius: Radius for rounding the corners of the final image.
+    :type corner_radius: int, optional
+    :return: The generated QR code image.
+    :rtype: PIL.Image.Image
+    """
     profile_url = input("Enter Instagram link to your profile: ")
 
     # Create QR code
