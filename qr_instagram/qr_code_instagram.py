@@ -1,6 +1,5 @@
 import qrcode
 from PIL import Image, ImageDraw, ImageFont
-import random
 
 
 def add_rounded_corners(image, radius=40):
@@ -69,11 +68,10 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_
     try:
         # Load local Instagram logo
         logo_img = Image.open(logo_path).convert('RGBA')
-    except:
-        # Create fallback logo
+    except (FileNotFoundError, OSError, IOError) as e:
+        print(f"⚠️ Logo file not found or invalid: {e}. Using fallback logo.")
         logo_img = Image.new('RGBA', (80, 80), (0, 0, 0, 0))
         draw_logo = ImageDraw.Draw(logo_img)
-        # Create Instagram-style logo with gradient
         draw_logo.ellipse([10, 10, 70, 70], outline='#E1306C', width=8)
         draw_logo.ellipse([30, 30, 50, 50], fill='#E1306C')
 
@@ -85,7 +83,7 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_
     logo_bg_size = logo_size + 20
     logo_bg = Image.new('RGB', (logo_bg_size, logo_bg_size), 'white')
 
-    # Paste logo onto background (centered)
+    # Paste logo onto the background (centered)
     logo_pos = ((logo_bg_size - logo_size) // 2, (logo_bg_size - logo_size) // 2)
 
     if logo_img.mode == 'RGBA':
@@ -110,15 +108,15 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_
     try:
         font_large = ImageFont.truetype("arialbd.ttf", 26)
         font_small = ImageFont.truetype("arial.ttf", 18)
-    except:
+    except (OSError, IOError):
         try:
             font_large = ImageFont.truetype("arial.ttf", 26)
             font_small = ImageFont.truetype("arial.ttf", 18)
-        except:
+        except (OSError, IOError):
             font_large = ImageFont.load_default()
             font_small = ImageFont.load_default()
 
-    # Handle text with gradient effect
+    # Handle text with a gradient effect
     handle = input("Enter your username starting with @:")
     handle_width = draw.textlength(handle, font=font_large)
     handle_x = (img_width - handle_width) // 2
@@ -160,7 +158,7 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_
     return final_img
 
 
-# Alternative version with smooth gradient
+# Alternative version with a smooth gradient
 def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
     profile_url = input("Enter instagram link to your profile:")
 
@@ -177,7 +175,7 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_
     # Instagram gradient colors (smooth transition)
     GRADIENT_COLORS = ["#405DE6", "#833AB4", "#E1306C", "#F77737", "#FFDC80"]
 
-    # Create smooth gradient effect
+    # Create a smooth gradient effect
     qr_modules = qr.get_matrix()
     box_size = 10
     border = 4
@@ -187,15 +185,15 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_
     qr_img = Image.new('RGB', (width, height), 'white')
     draw = ImageDraw.Draw(qr_img)
 
-    # Draw QR code with smooth gradient
+    # Draw QR code with a smooth gradient
     for y, row in enumerate(qr_modules):
         for x, module in enumerate(row):
             if module:
-                # Calculate color based on position for smooth gradient
+                # Calculate color based on position for a smooth gradient
                 progress = (x + y) / (len(qr_modules) + len(row))
                 color_index = int(progress * (len(GRADIENT_COLORS) - 1))
 
-                # Blend between colors for smoother transition
+                # Blend between colors for a smoother transition
                 if color_index < len(GRADIENT_COLORS) - 1:
                     blend_factor = progress * (len(GRADIENT_COLORS) - 1) - color_index
                     color1 = GRADIENT_COLORS[color_index]
@@ -214,13 +212,14 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_
 
     try:
         logo_img = Image.open(logo_path).convert('RGBA')
-    except:
+    except (FileNotFoundError, OSError, IOError) as e:
+        print(f"⚠️ Logo file not found or invalid: {e}. Using fallback logo.")
         logo_img = Image.new('RGBA', (70, 70), (0, 0, 0, 0))
         draw_logo = ImageDraw.Draw(logo_img)
         draw_logo.ellipse([5, 5, 65, 65], outline='#E1306C', width=6)
         draw_logo.ellipse([25, 25, 45, 45], fill='#E1306C')
 
-    # Add logo to center
+    # Add logo to the center
     logo_size = width // 6
     logo_img = logo_img.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
 
@@ -326,11 +325,12 @@ def create_instagram_qr_black_white(logo_path="instagram_logo.png", rounded_corn
     try:
         # Load local Instagram logo
         logo_img = Image.open(logo_path).convert('RGBA')
-    except:
+    except (FileNotFoundError, OSError, IOError) as e:
         # Create fallback logo
+        print(f"⚠️ Logo file not found or invalid: {e}. Using fallback logo.")
         logo_img = Image.new('RGBA', (80, 80), (0, 0, 0, 0))
         draw_logo = ImageDraw.Draw(logo_img)
-        # Create Instagram-style logo
+        # Create an Instagram-style logo
         draw_logo.ellipse([10, 10, 70, 70], outline='black', width=8)
         draw_logo.ellipse([30, 30, 50, 50], fill='black')
 
@@ -364,11 +364,11 @@ def create_instagram_qr_black_white(logo_path="instagram_logo.png", rounded_corn
     try:
         font_large = ImageFont.truetype("arialbd.ttf", 26)
         font_small = ImageFont.truetype("arial.ttf", 18)
-    except:
+    except (OSError, IOError):
         try:
             font_large = ImageFont.truetype("arial.ttf", 26)
             font_small = ImageFont.truetype("arial.ttf", 18)
-        except:
+        except (OSError, IOError):
             font_large = ImageFont.load_default()
             font_small = ImageFont.load_default()
 
@@ -384,7 +384,7 @@ def create_instagram_qr_black_white(logo_path="instagram_logo.png", rounded_corn
     scan_x = (img_width - scan_width) // 2
     draw.text((scan_x, img_height + 60), scan_text, fill="#666666", font=font_small)
 
-    # Add black bar at the bottom
+    # Add a black bar at the bottom
     bar_height = 8
     bar_y = new_height - bar_height
     draw.rectangle([0, bar_y, img_width, bar_y + bar_height], fill='black')
