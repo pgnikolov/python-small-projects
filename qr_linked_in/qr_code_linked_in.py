@@ -152,6 +152,19 @@ def add_rounded_corners(image, img_width, new_height):
 
 
 def create_linkedin_qr_with_local_logo(logo_path="linkedin-logo.png"):
+    """
+    Generates a LinkedIn QR code with a local logo merged into the QR code image. The
+    function incorporates user input to customize the QR code and its accompanying
+    text, including the LinkedIn profile shortlink and display name. The QR code
+    produced includes rounded corners and is saved as an image in PNG format.
+
+    :param logo_path: Path to the logo image file to be embedded in the QR code.
+                      Default is 'linkedin-logo.png'.
+    :type logo_path: str
+    :return: A PIL.Image object of the generated QR code with integrated logo and
+             customized text section.
+    :rtype: PIL.Image.Image
+    """
     # Get user input
     profile_url = input("Enter LinkedIn profile URL or username: ")
     display_name = input("Enter your display name: ")
