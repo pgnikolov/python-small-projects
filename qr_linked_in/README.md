@@ -5,7 +5,7 @@ A Python script that generates elegant, LinkedIn-themed QR codes for professiona
 
 ## Features
 
-* **LinkedIn Blue Styling:** Uses LinkedIn’s signature blue color for clean, professional QR codes
+* **LinkedIn Blue Styling:** Uses LinkedIn's signature blue color for clean, professional QR codes
 * **Custom Logo Integration:** Automatically embeds your LinkedIn logo or generates a fallback logo
 * **Rounded Corners:** Smooth, modern rounded edges for a polished finish
 * **Personalized Text Area:** Displays your name, short LinkedIn URL, and a “Scan to connect” message
