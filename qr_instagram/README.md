@@ -1,168 +1,235 @@
-# Instagram QR Code Generator
+# 🎨 Instagram QR Code Generator
 
-A Python script that creates beautiful, gradient-styled QR codes for Instagram profiles with custom branding and visual effects.
+A powerful Python script that generates stunning, professional-looking QR codes for Instagram profiles — featuring gradient color effects, logo integration, rounded corners, and multiple style modes.
 
+---
 
+## ✨ Features
 
-## Features
+* **Instagram Gradient Styling:** Classic multi-tone Instagram gradient for colorful QR codes
+* **Smooth Gradient Mode:** Soft blended color transitions for a modern, elegant look
+* **Black & White Mode:** Clean minimalist QR codes for professional branding
+* **Rounded Corners:** Optional rounded edges for a polished finish
+* **Custom Logo Integration:** Automatically loads or generates an Instagram-style logo
+* **Interactive Menu System:** Simple text interface to choose between modes
+* **Customizable Text Area:** Adds your Instagram handle and “Scan to follow” prompt
+* **High-Quality Output:** Exports crisp PNG images ready for web or print
 
-- **Instagram Gradient Styling:** QR codes feature Instagram's iconic gradient colors
-- **Custom Logo Integration:** Add your Instagram logo or use auto-generated fallback
-- **Gradient Text Effects:** Username displays with colorful gradient styling
-- **Professional Layout:** Clean design with "Scan to follow" text and gradient bars
-- **Two Generation Modes:** Choose between discrete or smooth gradient effects
-- **High Quality Output:** Export as high-resolution PNG images
+---
 
-## Quick Start
+## ⚙️ Quick Start
 
 ### Prerequisites
 
-- Python 3.6 or higher
-- Required Python packages:
+* Python 3.6 or higher
+* Required Python packages:
+
 ```bash
 pip install qrcode[pil] pillow
 ```
 
-## Installation
+---
+
+## 🚀 Installation
 
 #### 1. Clone or download the script:
+
 ```bash
 git clone <repository-url>
 cd instagram-qr-generator
 ```
 
-#### 2. Ensure you have the required dependencies:
+#### 2. Install dependencies:
+
 ```bash
 pip install qrcode[pil] pillow
 ```
 
-#### 3. (Optional) Place your Instagram logo as instagram_logo.png in the same directory
+#### 3. (Optional) Add your own Instagram logo:
 
+Place a file named `instagram_logo.png` in the same directory.
+If missing, a fallback gradient logo will be auto-generated.
 
-## Basic Usage
+---
 
-### Run the script and follow the prompts:
+## 🧭 Usage
+
+### Run the script:
+
 ```bash
 python instagram_qr_generator.py
 ```
 
-#### The script will:
-1. Ask for your Instagram profile URL
-2. Request your Instagram handle (with @)
-3. Generate a beautifully styled QR code
-4. Save it as `qr_instagram.png`
+### Interactive menu options:
 
-## Customization Options
+1. **Color Gradient QR Code** — vibrant Instagram multi-color gradient
+2. **Smooth Gradient QR Code** — soft gradient transitions
+3. **Black & White QR Code** — simple professional look
+4. **Generate All Versions** — automatically creates all three variants
 
-### Two Generation Modes
+### Additional options:
 
-1. Discrete Gradient (`create_instagram_qr_with_local_logo`)
-    - Uses Instagram's 10-color gradient palette
-    - Each QR module gets a distinct gradient color
-    - More vibrant and colorful appearance
-2. Smooth Gradient (`create_instagram_qr_smooth_gradient`)
-    - Blends between 5 main Instagram colors
-    - Creates smoother color transitions
-    - More subtle and professional look
+* Choose whether to add **rounded corners**
+* Adjust **corner radius** (default: 40)
 
-## 📁 File Structure
+---
 
-```bash
-instagram-qr-generator/
-├── instagram_qr_generator.py  # Main script
-├── instagram_logo.png         # Optional custom logo
-├── qr_instagram.png           # Generated QR code
-└── README.md                  # This file
-```
+## 🧩 Modes Overview
 
-## 🔧 Advanced Usage
+### 🌈 1. Color Gradient Mode (`create_instagram_qr_with_local_logo`)
 
-#### Modifying Colors
+* Uses 10 signature Instagram colors
+* Each QR module receives a unique color for a vibrant result
+* File output: `qr_instagram.png` or `qr_instagram_rounded.png`
 
-Edit the gradient color arrays in the functions:
+### 🌤️ 2. Smooth Gradient Mode (`create_instagram_qr_smooth_gradient`)
+
+* Blends five key Instagram colors for a smooth transition
+* File output: `qr_instagram_smooth.png` or `qr_instagram_smooth_rounded.png`
+
+### ⚫⚪ 3. Black & White Mode (`create_instagram_qr_black_white`)
+
+* Generates a clean, minimalist monochrome QR code
+* File output: `qr_instagram_bw.png` or `qr_instagram_bw_rounded.png`
+
+---
+
+## 🧠 Customization
+
+### 🎨 Modify Gradient Colors
+
+Discrete gradient palette:
+
 ```python
-# For discrete gradient
 INSTAGRAM_GRADIENT = [
     "#405DE6", "#5851DB", "#833AB4", "#C13584",
     "#E1306C", "#FD1D1D", "#F56040", "#F77737",
     "#FCAF45", "#FFDC80"
 ]
+```
 
-# For smooth gradient
+Smooth gradient palette:
+
+```python
 GRADIENT_COLORS = ["#405DE6", "#833AB4", "#E1306C", "#F77737", "#FFDC80"]
 ```
-#### Changing QR Code Parameters
+
+---
+
+### 🧱 Adjust QR Code Parameters
 
 ```python
 qr = qrcode.QRCode(
-    version=1,                    # Controls size (1-40)
-    error_correction=qrcode.constants.ERROR_CORRECT_H,  # Error correction level
-    box_size=12,                  # Pixel size of each box
-    border=4,                     # Border size in boxes
+    version=1,  # Size of the QR code (1–40)
+    error_correction=qrcode.constants.ERROR_CORRECT_H,  # High error correction
+    box_size=12,  # Size of each module in pixels
+    border=4,  # Border width in modules
 )
 ```
 
-#### Custom Fonts
+---
+
+### 🖋️ Font Customization
 
 ```python
-font_large = ImageFont.truetype("arialbd.ttf", 26)  # Bold for username
-font_small = ImageFont.truetype("arial.ttf", 18)    # Regular for subtitle
+font_large = ImageFont.truetype("arialbd.ttf", 26)  # Bold username font
+font_small = ImageFont.truetype("arial.ttf", 18)    # Subtitle text font
 ```
 
-## 📸 Output Example
+If unavailable, system default fonts are used automatically.
 
-The generated QR code includes:
-  - Instagram-gradient colored QR pattern
-  - Centered logo (custom or generated)
-  - Gradient-styled username handle
-  - "Scan to follow" instruction text
-  - Instagram gradient color bar at the bottom
+---
 
+### 🌀 Rounded Corners
+
+Add or adjust rounded edges:
+
+```python
+final_img = add_rounded_corners(final_img, corner_radius=40)
+```
+
+---
+
+## 📁 File Structure
+
+```bash
+instagram-qr-generator/
+├── instagram_qr_generator.py         # Main script
+├── instagram_logo.png                # Optional custom logo
+├── qr_instagram.png                  # Gradient version
+├── qr_instagram_smooth.png           # Smooth gradient version
+├── qr_instagram_bw.png               # Black & white version
+└── README.md                         # This file
+```
+
+---
+
+## 📸 Output Examples
+
+Generated QR codes include:
+
+* Centered Instagram logo (custom or auto-generated)
+* Colored or monochrome QR pattern
+* Username handle with gradient text
+* “Scan to follow” caption
+* Gradient or black footer bar
+* Optional rounded corners for a modern feel
+
+---
 
 ## 🛠️ Technical Details
 
-#### Dependencies
-  - `qrcode`: QR code generation
-  - `PIL/Pillow`: Image processing and manipulation
-  - `random`: Color selection randomization
+* **Libraries:** `qrcode`, `PIL/Pillow`, `random`
+* **Error Correction:** Level H for maximum scan reliability
+* **Fallback Handling:**
 
-#### Error Handling
-  - Logo Not Found: Automatically generates a fallback Instagram-style icon
-  - Font Issues: Falls back to system default fonts if specified fonts unavailable
-  - QR Code Generation: Uses high error correction for better scan reliability
+  * Missing logo → auto-generated gradient icon
+  * Missing fonts → system default substitution
+  * Invalid input → safe fallback defaults
 
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit pull requests for:
-  - Additional styling options
-  - Improved gradient algorithms
-  - Better font handling
-  - Performance optimizations
+Contributions are welcome!
+You can improve or extend this project by adding:
+
+* New gradient algorithms
+* Animated QR versions
+* Custom font or color presets
+* Dark/light theme compatibility
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the **MIT License** — see the LICENSE file for details.
+
+---
 
 ## ⚠️ Notes
 
-- Ensure your Instagram profile is public for the QR code to work effectively
-- Test the generated QR code with multiple QR scanners
-- Higher error correction levels create more complex but reliable QR codes
-- The script currently supports PNG output format
+* Make sure your Instagram profile is **public** for scan access
+* Test generated QR codes with multiple scanners
+* Higher error correction → larger but more reliable QR codes
+* PNG output preserves transparency and quality
+
+---
 
 ## 🐛 Troubleshooting
 
-#### QR Code Doesn't Scan:
-  - Try increasing the box_size parameter
-  - Ensure adequate contrast between QR code and background
-  - Test with different QR scanner apps
+### QR Code Doesn’t Scan
 
-#### Logo Not Appearing:
-  - Verify instagram_logo.png is in the correct directory
-  - Check that the logo file is a valid image format
-  - Ensure the logo has appropriate transparency (PNG recommended)
+* Increase `box_size`
+* Check for sufficient color contrast
+* Avoid overly busy backgrounds
 
-#### Font Issues:
-  - Install the required fonts on your system
-  - Modify the font paths in the script to use available fonts
+### Logo Missing
+
+* Ensure `instagram_logo.png` is in the working directory
+* Use a **transparent PNG** for best results
+
+### Font Errors
+
+* Install `Arial` or edit paths to available fonts
+* Defaults will apply automatically if fonts are missing

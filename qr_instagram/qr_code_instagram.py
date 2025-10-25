@@ -3,7 +3,23 @@ from PIL import Image, ImageDraw, ImageFont
 import random
 
 
-def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png"):
+def add_rounded_corners(image, radius=40):
+    """Add rounded corners to the image"""
+    # Create a mask with rounded corners
+    mask = Image.new('L', image.size, 0)
+    mask_draw = ImageDraw.Draw(mask)
+
+    # Draw rounded rectangle on mask
+    mask_draw.rounded_rectangle([(0, 0), image.size], radius=radius, fill=255)
+
+    # Create result image with transparency
+    result = Image.new('RGBA', image.size, (0, 0, 0, 0))
+    result.paste(image, (0, 0), mask)
+
+    return result
+
+
+def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
     profile_url = input("Enter instagram link to your profile:")
 
     # Create QR code
@@ -132,13 +148,20 @@ def create_instagram_qr_with_local_logo(logo_path="instagram_logo.png"):
             x_end = img_width
         draw.rectangle([x_start, bar_y, x_end, bar_y + bar_height], fill=color)
 
-    final_img.save("qr_instagram.png", quality=95)
-    print("QR code with Instagram gradient created!")
+    # Add rounded corners if requested
+    if rounded_corners:
+        final_img = add_rounded_corners(final_img, corner_radius)
+        filename = "qr_instagram_rounded.png"
+    else:
+        filename = "qr_instagram.png"
+
+    final_img.save(filename, quality=95)
+    print(f"QR code with Instagram gradient created! {'(Rounded corners)' if rounded_corners else ''}")
     return final_img
 
 
 # Alternative version with smooth gradient
-def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png"):
+def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
     profile_url = input("Enter instagram link to your profile:")
 
     # Create QR code
@@ -251,12 +274,171 @@ def create_instagram_qr_smooth_gradient(logo_path="instagram_logo.png"):
             x_end = img_width
         draw.rectangle([x_start, bar_y, x_end, bar_y + bar_height], fill=color)
 
-    final_img.save("qr_instagram.png", quality=95)
-    print("🎨 Smooth gradient QR code created!")
+    # Add rounded corners if requested
+    if rounded_corners:
+        final_img = add_rounded_corners(final_img, corner_radius)
+        filename = "qr_instagram_smooth_rounded.png"
+    else:
+        filename = "qr_instagram_smooth.png"
+
+    final_img.save(filename, quality=95)
+    print(f"🎨 Smooth gradient QR code created! {'(Rounded corners)' if rounded_corners else ''}")
     return final_img
 
 
-# Run both versions
-print("Creating gradient QR codes...")
-create_instagram_qr_with_local_logo()
-#create_instagram_qr_smooth_gradient()
+# Black and white QR code version
+def create_instagram_qr_black_white(logo_path="instagram_logo.png", rounded_corners=False, corner_radius=40):
+    profile_url = input("Enter Instagram link to your profile: ")
+
+    # Create QR code
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=12,
+        border=4,
+    )
+    qr.add_data(profile_url)
+    qr.make(fit=True)
+
+    # Get QR code modules
+    qr_modules = qr.get_matrix()
+
+    # Create image
+    box_size = 12
+    border = 4
+    width = len(qr_modules) * box_size + 2 * border * box_size
+    height = len(qr_modules) * box_size + 2 * border * box_size + 100
+
+    qr_img = Image.new('RGB', (width, height), 'white')
+    draw = ImageDraw.Draw(qr_img)
+
+    # Draw black and white QR code
+    for y, row in enumerate(qr_modules):
+        for x, module in enumerate(row):
+            if module:
+                x_pos = x * box_size + border * box_size
+                y_pos = y * box_size + border * box_size
+                draw.rectangle(
+                    [x_pos, y_pos, x_pos + box_size, y_pos + box_size],
+                    fill='black'
+                )
+
+    try:
+        # Load local Instagram logo
+        logo_img = Image.open(logo_path).convert('RGBA')
+    except:
+        # Create fallback logo
+        logo_img = Image.new('RGBA', (80, 80), (0, 0, 0, 0))
+        draw_logo = ImageDraw.Draw(logo_img)
+        # Create Instagram-style logo
+        draw_logo.ellipse([10, 10, 70, 70], outline='black', width=8)
+        draw_logo.ellipse([30, 30, 50, 50], fill='black')
+
+    # Resize logo
+    logo_size = width // 5
+    logo_img = logo_img.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
+
+    # Create white background for logo
+    logo_bg_size = logo_size + 20
+    logo_bg = Image.new('RGB', (logo_bg_size, logo_bg_size), 'white')
+    logo_pos = ((logo_bg_size - logo_size) // 2, (logo_bg_size - logo_size) // 2)
+
+    if logo_img.mode == 'RGBA':
+        logo_bg.paste(logo_img, logo_pos, logo_img)
+    else:
+        logo_bg.paste(logo_img, logo_pos)
+
+    # Paste logo onto QR code
+    qr_pos = ((width - logo_bg_size) // 2, (height - 100 - logo_bg_size) // 2)
+    qr_img.paste(logo_bg, qr_pos)
+
+    # Add text area
+    img_width, img_height = width, height - 100
+    new_height = img_height + 100
+
+    final_img = Image.new('RGB', (img_width, new_height), 'white')
+    final_img.paste(qr_img.crop((0, 0, img_width, img_height)), (0, 0))
+
+    draw = ImageDraw.Draw(final_img)
+
+    try:
+        font_large = ImageFont.truetype("arialbd.ttf", 26)
+        font_small = ImageFont.truetype("arial.ttf", 18)
+    except:
+        try:
+            font_large = ImageFont.truetype("arial.ttf", 26)
+            font_small = ImageFont.truetype("arial.ttf", 18)
+        except:
+            font_large = ImageFont.load_default()
+            font_small = ImageFont.load_default()
+
+    # Handle text
+    handle = input("Enter your username starting with @: ")
+    handle_width = draw.textlength(handle, font=font_large)
+    handle_x = (img_width - handle_width) // 2
+    draw.text((handle_x, img_height + 20), handle, fill='black', font=font_large)
+
+    # Scan text
+    scan_text = "Scan to follow"
+    scan_width = draw.textlength(scan_text, font=font_small)
+    scan_x = (img_width - scan_width) // 2
+    draw.text((scan_x, img_height + 60), scan_text, fill="#666666", font=font_small)
+
+    # Add black bar at the bottom
+    bar_height = 8
+    bar_y = new_height - bar_height
+    draw.rectangle([0, bar_y, img_width, bar_y + bar_height], fill='black')
+
+    # Add rounded corners if requested
+    if rounded_corners:
+        final_img = add_rounded_corners(final_img, corner_radius)
+        filename = "qr_instagram_bw_rounded.png"
+    else:
+        filename = "qr_instagram_bw.png"
+
+    final_img.save(filename, quality=95)
+    print(f"⚫⚪ Black and white QR code created! {'(Rounded corners)' if rounded_corners else ''}")
+    return final_img
+
+
+# Menu system
+def main():
+    print("🎨 Instagram QR Code Generator")
+    print("=" * 50)
+    print("1. Color Gradient QR Code")
+    print("2. Smooth Gradient QR Code")
+    print("3. Black & White QR Code")
+    print("4. Generate All Versions")
+    print("=" * 50)
+
+    choice = input("Choose an option (1-4): ").strip()
+
+    # Ask about rounded corners
+    rounded_choice = input("Add rounded corners? (y/n): ").strip().lower()
+    rounded_corners = rounded_choice in ['y', 'yes', '1']
+
+    corner_radius = 40
+    if rounded_corners:
+        radius_choice = input("Enter corner radius (default 40): ").strip()
+        if radius_choice.isdigit():
+            corner_radius = int(radius_choice)
+
+    if choice == "1":
+        create_instagram_qr_with_local_logo(rounded_corners=rounded_corners, corner_radius=corner_radius)
+    elif choice == "2":
+        create_instagram_qr_smooth_gradient(rounded_corners=rounded_corners, corner_radius=corner_radius)
+    elif choice == "3":
+        create_instagram_qr_black_white(rounded_corners=rounded_corners, corner_radius=corner_radius)
+    elif choice == "4":
+        print("\nGenerating all QR code versions...")
+        create_instagram_qr_with_local_logo(rounded_corners=rounded_corners, corner_radius=corner_radius)
+        create_instagram_qr_smooth_gradient(rounded_corners=rounded_corners, corner_radius=corner_radius)
+        create_instagram_qr_black_white(rounded_corners=rounded_corners, corner_radius=corner_radius)
+        print("\n✅ All QR code versions generated!")
+    else:
+        print("❌ Invalid choice. Please run the script again.")
+
+
+# Run the program
+if __name__ == "__main__":
+    main()

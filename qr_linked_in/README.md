@@ -1,5 +1,4 @@
 # LinkedIn QR Code Generator
-
 A Python script that generates elegant, LinkedIn-themed QR codes for professional profiles — featuring custom branding, a corporate blue palette, and rounded-corner design.
 
 ---
